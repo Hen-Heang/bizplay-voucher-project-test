@@ -34,6 +34,9 @@ dependencies {
     // AOP (AspectJ pointcut expressions) — for TransactionConfig *Impl auto-transaction (same as saas-olv)
     implementation 'org.springframework.boot:spring-boot-starter-aspectj'
 
+    // Spring Security — session login + CSRF, same idea as olv SecurityConfig (web mode)
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
     // Validation (@Valid on Controller)
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 

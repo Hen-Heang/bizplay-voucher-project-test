@@ -27,6 +27,14 @@
 </head>
 <body>
 
+  <!-- 로그인 사용자 + 로그아웃 (POST — CSRF 토큰이 자동으로 포함된다) -->
+  <div th:if="${loginVO != null}" style="text-align:right; margin-bottom:8px;">
+    <span th:text="${loginVO.name} + ' (' + ${loginVO.id} + ')'">Practice Admin (admin)</span>
+    <form th:action="@{/login/logout.do}" method="post" style="display:inline">
+      <button type="submit" class="btn">로그아웃 / Logout</button>
+    </form>
+  </div>
+
   <div class="page-header">
     <h2>공지사항 목록 / Notice Board List
       &nbsp;<small style="font-size:14px; color:#666;">

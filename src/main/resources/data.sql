@@ -21,3 +21,10 @@ SELECT title, content, 'Y', 'system'
         ('Audit columns',                   'data_reg_dt and data_chg_dt are set automatically by SQL NOW().')
        ) AS seed(title, content)
  WHERE NOT EXISTS (SELECT 1 FROM co_notice_m);
+
+-- ─── Practice login account ───────────────────────────────────────────
+-- ID: admin / PW: practice1234   (local practice only)
+-- mngr_enpw = Base64(SHA-256("admin" + "practice1234"))  ← CmmPasswordEncoder.encryptPassword(pw, id)
+INSERT INTO ur_mngr_m (web_id, mngr_nm, mngr_enpw, mngr_stcd)
+VALUES ('admin', 'Practice Admin', 'VSaXvrmPlK+03AXWWXLBiwADu1+Lo7gAN0aB1DKc3oc=', '20')
+ON CONFLICT (web_id) DO NOTHING;

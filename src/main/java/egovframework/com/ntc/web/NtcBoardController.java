@@ -1,6 +1,8 @@
 package egovframework.com.ntc.web;
 
+import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.PaginationVO;
+import egovframework.com.cmm.util.CmmUserDetailsHelper;
 import egovframework.com.ntc.service.NtcBoardInVO;
 import egovframework.com.ntc.service.NtcBoardOutVO;
 import egovframework.com.ntc.service.NtcBoardService;
@@ -55,6 +57,7 @@ public class NtcBoardController {
         model.addAttribute("totCnt", totCnt);
         model.addAttribute("searchVO", inVO);
         model.addAttribute("paging", paging);
+        model.addAttribute("loginVO", CmmUserDetailsHelper.getAuthenticatedUser());
 
         return "egovframework/com/ntc/NtcBoardList";
     }
@@ -92,7 +95,7 @@ public class NtcBoardController {
     public String insert(
             @ModelAttribute("ntcBoardVO") NtcBoardInVO inVO) throws Exception {
 
-        inVO.setDataRegId("practice_user");
+        inVO.setDataRegId(currentUserId());
         ntcBoardService.insert(inVO);
         return "redirect:/ntcBoard/list.do";
     }
@@ -104,7 +107,7 @@ public class NtcBoardController {
     public String update(
             @ModelAttribute("ntcBoardVO") NtcBoardInVO inVO) throws Exception {
 
-        inVO.setDataChgId("practice_user");
+        inVO.setDataChgId(currentUserId());
         ntcBoardService.update(inVO);
         return "redirect:/ntcBoard/list.do";
     }
@@ -116,7 +119,7 @@ public class NtcBoardController {
     public String delete(
             @ModelAttribute("ntcBoardVO") NtcBoardInVO inVO) throws Exception {
 
-        inVO.setDataChgId("practice_user");
+        inVO.setDataChgId(currentUserId());
         ntcBoardService.delete(inVO);
         return "redirect:/ntcBoard/list.do";
     }
@@ -143,7 +146,7 @@ public class NtcBoardController {
     public String restore(
             @ModelAttribute("ntcBoardVO") NtcBoardInVO inVO) throws Exception {
 
-        inVO.setDataChgId("practice_user");
+        inVO.setDataChgId(currentUserId());
         ntcBoardService.restore(inVO);
         return "redirect:/ntcBoard/deletedList.do";
     }
@@ -158,7 +161,7 @@ public class NtcBoardController {
 
         NtcBoardInVO inVO = new NtcBoardInVO();
         inVO.setUseYn("Y");
-        inVO.setDataRegId("practice_user");
+        inVO.setDataRegId(currentUserId());
 
         if ("rollback".equals(mode)) {
             ntcBoardService.insertTxRollbackTest(inVO);
@@ -166,5 +169,14 @@ public class NtcBoardController {
             ntcBoardService.selectTxReadOnlyTest(inVO);
         }
         return "redirect:/ntcBoard/list.do";
+    }
+
+    /**
+     * Logged-in user ID for the audit columns (data_reg_id / data_chg_id).
+     * Same as olv: CmmUserDetailsHelper.getAuthenticatedUser() → LoginVO.getId()
+     */
+    private String currentUserId() {
+        LoginVO user = (LoginVO) CmmUserDetailsHelper.getAuthenticatedUser();
+        return user == null ? "" : user.getId();
     }
 }

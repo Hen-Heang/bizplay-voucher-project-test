@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="egovframework.com.cmm.mapper.LoginMapper">
+
+    <resultMap id="loginResult" type="egovframework.com.cmm.LoginVO">
+        <result property="userNo" column="user_no"/>
+        <result property="id"     column="web_id"/>
+        <result property="name"   column="user_nm"/>
+    </resultMap>
+
+    <!-- 로그인: ID + 해시 비밀번호 + 활성 상태('20') 가 모두 맞아야 1건 조회
+         비밀번호 컬럼은 SELECT 하지 않는다 (세션에 해시값이 남지 않도록) -->
+    <select id="actionLogin" parameterType="egovframework.com.cmm.LoginVO" resultMap="loginResult">
+        SELECT mngr_no AS user_no,
+               web_id,
+               mngr_nm AS user_nm
+          FROM ur_mngr_m
+         WHERE web_id    = #{id}
+           AND mngr_enpw = #{password}
+           AND mngr_stcd = '20'
+    </select>
+
+</mapper>

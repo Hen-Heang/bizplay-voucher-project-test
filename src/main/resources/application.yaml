@@ -16,6 +16,19 @@ spring:
     init:
       mode: always
 
+# Project settings (same "globals.*" idea as olv GlobalsProperties — only the security part)
+globals:
+  security:
+    login-url: /login/login.do
+    logout-url: /login/logout.do
+    login-success-url: /ntcBoard/list.do
+    csrf-enabled: true
+    # URLs anyone can open without logging in (olv manages these in yml, not in code)
+    public-urls:
+      - /login/login.do
+      - /login/action.do
+      - /error
+
 mybatis:
   mapper-locations: classpath:/egovframework/mapper/**/*.xml
   configuration:
@@ -26,5 +39,6 @@ logging:
   level:
     # shows exact SQL + bound parameters + result row count
     egovframework.com.ntc.mapper: DEBUG
+    egovframework.com.cmm.mapper: DEBUG
     # shows SQL with actual values filled in (not ? placeholders)
     org.mybatis: DEBUG

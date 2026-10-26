@@ -33,3 +33,23 @@ CREATE TABLE IF NOT EXISTS co_notice_m (
     data_chg_dt  TIMESTAMP,
     CONSTRAINT pk_co_notice_m PRIMARY KEY (notice_sn)
 );
+
+-- ─── Admin (manager) table for login practice (ur_mngr_m) ─────────────
+-- Simplified from the olv manager table naming:
+--   mngr_no   : primary key
+--   web_id    : login ID (unique)
+--   mngr_nm   : display name
+--   mngr_enpw : password hash = Base64(SHA-256(web_id + password)) — eGov style
+--   mngr_stcd : status ('20' = active, same code olv checks at login)
+CREATE SEQUENCE IF NOT EXISTS seq_ur_mngr_m START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE IF NOT EXISTS ur_mngr_m (
+    mngr_no      BIGINT       NOT NULL DEFAULT nextval('seq_ur_mngr_m'),
+    web_id       VARCHAR(20)  NOT NULL,
+    mngr_nm      VARCHAR(50)  NOT NULL,
+    mngr_enpw    VARCHAR(100) NOT NULL,
+    mngr_stcd    CHAR(2)      DEFAULT '20',
+    data_reg_dt  TIMESTAMP    DEFAULT NOW(),
+    CONSTRAINT pk_ur_mngr_m PRIMARY KEY (mngr_no),
+    CONSTRAINT uk_ur_mngr_m_web_id UNIQUE (web_id)
+);
