@@ -1,9 +1,9 @@
-package com.henheang.saaspractices.ntc.web;
+package egovframework.com.ntc.web;
 
-import com.henheang.saaspractices.cmm.PaginationVO;
-import com.henheang.saaspractices.ntc.service.NtcBoardInVO;
-import com.henheang.saaspractices.ntc.service.NtcBoardOutVO;
-import com.henheang.saaspractices.ntc.service.NtcBoardService;
+import egovframework.com.cmm.service.PaginationVO;
+import egovframework.com.ntc.service.NtcBoardInVO;
+import egovframework.com.ntc.service.NtcBoardOutVO;
+import egovframework.com.ntc.service.NtcBoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@ public class NtcBoardController {
         model.addAttribute("searchVO", inVO);
         model.addAttribute("paging", paging);
 
-        return "ntc/NtcBoardList";
+        return "egovframework/com/ntc/NtcBoardList";
     }
 
     /**
@@ -73,7 +73,7 @@ public class NtcBoardController {
         NtcBoardOutVO outVO = ntcBoardService.selectDetail(inVO);
 
         model.addAttribute("ntcBoardVO", outVO);
-        return "ntc/NtcBoardUpdt";
+        return "egovframework/com/ntc/NtcBoardUpdt";
     }
 
     /**
@@ -82,7 +82,7 @@ public class NtcBoardController {
     @RequestMapping("/ntcBoard/insertView.do")
     public String insertView(
             @ModelAttribute("ntcBoardVO") NtcBoardInVO inVO) throws Exception {
-        return "ntc/NtcBoardRegist";
+        return "egovframework/com/ntc/NtcBoardRegist";
     }
 
     /**
@@ -132,7 +132,7 @@ public class NtcBoardController {
 
         List<NtcBoardOutVO> deletedList = ntcBoardService.selectDeletedList(inVO);
         model.addAttribute("deletedList", deletedList);
-        return "ntc/NtcBoardDeletedList";
+        return "egovframework/com/ntc/NtcBoardDeletedList";
     }
 
     /**
@@ -146,5 +146,25 @@ public class NtcBoardController {
         inVO.setDataChgId("practice_user");
         ntcBoardService.restore(inVO);
         return "redirect:/ntcBoard/deletedList.do";
+    }
+
+    /**
+     * Exercise 2 — TransactionConfig test (practice only, not an olv screen)
+     * /ntcBoard/txTest.do?mode=rollback  → 2 inserts + checked Exception → expect 0 rows saved
+     * /ntcBoard/txTest.do?mode=readonly  → INSERT inside select* method → expect DB error
+     */
+    @RequestMapping("/ntcBoard/txTest.do")
+    public String txTest(@RequestParam("mode") String mode) throws Exception {
+
+        NtcBoardInVO inVO = new NtcBoardInVO();
+        inVO.setUseYn("Y");
+        inVO.setDataRegId("practice_user");
+
+        if ("rollback".equals(mode)) {
+            ntcBoardService.insertTxRollbackTest(inVO);
+        } else if ("readonly".equals(mode)) {
+            ntcBoardService.selectTxReadOnlyTest(inVO);
+        }
+        return "redirect:/ntcBoard/list.do";
     }
 }

@@ -15,7 +15,7 @@ SELECT title, content, 'Y', 'system'
         ('PRG pattern in action',           'After insert/update/delete, the controller redirects to list.do.'),
         ('Search me',                       'Try typing "search" in the search box to find this row.'),
         ('Pagination test row 6',           'You will need 11+ rows to see page 2 appear.'),
-        ('Pagination test row 7',           'Adjust recordCountPerPage in BaseVO if you want smaller pages.'),
+        ('Pagination test row 7',           'Adjust recordCountPerPage in CmmVO if you want smaller pages.'),
         ('Soft delete demo',                'Delete this row — it goes to /ntcBoard/deletedList.do instead of being removed.'),
         ('Restore demo',                    'You can restore deleted rows from the Deleted List page.'),
         ('Audit columns',                   'data_reg_dt and data_chg_dt are set automatically by SQL NOW().')

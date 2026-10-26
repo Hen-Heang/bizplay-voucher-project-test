@@ -1,7 +1,7 @@
 # saas-olv Reference Materials (Study Use)
 
 > 📚 A collection of development guides copied from the Korean company SaaS project (`saas-olv`).
-> Kept here in `saas-practices` for studying the eGovFramework / MyBatis / Thymeleaf patterns.
+> Kept here in `bizplay-voucher-project-test` for studying the eGovFramework / MyBatis / Thymeleaf patterns.
 >
 > 👉 For how the saas-olv class names map to **this** project, see [`../../CLAUDE.md`](../../CLAUDE.md) → "Local Mapping" section.
 

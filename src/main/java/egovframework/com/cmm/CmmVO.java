@@ -1,13 +1,14 @@
-package com.henheang.saaspractices.cmm;
+package egovframework.com.cmm;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Practice equivalent of CmmVO from saas-olv.
- * All InVO classes extend this.
+ * 공통 Base VO (practice copy of olv CmmVO)
+ * 모든 InVO 의 부모 클래스 — 검색조건, 페이징, 공통 감사(Audit) 컬럼.
  */
-public class BaseVO implements Serializable {
+
+public class CmmVO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -15,6 +16,7 @@ public class BaseVO implements Serializable {
     /* ── Search ── */
     private String searchCondition;
     private String searchKeyword;
+
 
     /* ── Paging ── */
     private int pageIndex = 1;

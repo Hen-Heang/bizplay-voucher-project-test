@@ -1,7 +1,7 @@
-package com.henheang.saaspractices.ntc.mapper;
+package egovframework.com.ntc.mapper;
 
-import com.henheang.saaspractices.ntc.service.NtcBoardInVO;
-import com.henheang.saaspractices.ntc.service.NtcBoardOutVO;
+import egovframework.com.ntc.service.NtcBoardInVO;
+import egovframework.com.ntc.service.NtcBoardOutVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,9 +17,10 @@ public interface NtcBoardMapper {
     int selectListTotCnt(NtcBoardInVO inVO) throws Exception;
     NtcBoardOutVO selectDetail(NtcBoardInVO inVO) throws Exception;
     void insert(NtcBoardInVO inVO) throws Exception;
-    void update(NtcBoardInVO inVO) throws Exception;
-    void delete(NtcBoardInVO inVO) throws Exception;
+    /** Returns the number of updated rows (0 = not found / already changed) */
+    int update(NtcBoardInVO inVO) throws Exception;
+    int delete(NtcBoardInVO inVO) throws Exception;
 
     List<NtcBoardOutVO> selectDeletedList(NtcBoardInVO inVO) throws Exception;
-    void restore(NtcBoardInVO inVO) throws Exception;
+    int restore(NtcBoardInVO inVO) throws Exception;
 }

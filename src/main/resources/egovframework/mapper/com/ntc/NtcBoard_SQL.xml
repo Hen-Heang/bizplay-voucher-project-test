@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.henheang.saaspractices.ntc.mapper.NtcBoardMapper">
+<mapper namespace="egovframework.com.ntc.mapper.NtcBoardMapper">
 
     <!-- resultMap: real DB columns of co_notice_m → OutVO fields -->
-    <resultMap id="ntcBoard" type="com.henheang.saaspractices.ntc.service.NtcBoardOutVO">
+    <resultMap id="ntcBoard" type="egovframework.com.ntc.service.NtcBoardOutVO">
         <result property="noticeSn"    column="notice_sn"/>
         <result property="noticeTitle" column="notice_title"/>
         <result property="noticeCn"    column="notice_cn"/>
@@ -18,7 +18,7 @@
 
     <!-- LIST -->
     <select id="selectList"
-            parameterType="com.henheang.saaspractices.ntc.service.NtcBoardInVO"
+            parameterType="egovframework.com.ntc.service.NtcBoardInVO"
             resultMap="ntcBoard">
         SELECT notice_sn,
                notice_title,
@@ -41,7 +41,7 @@
 
     <!-- COUNT -->
     <select id="selectListTotCnt"
-            parameterType="com.henheang.saaspractices.ntc.service.NtcBoardInVO"
+            parameterType="egovframework.com.ntc.service.NtcBoardInVO"
             resultType="int">
         SELECT COUNT(*)
           FROM co_notice_m
@@ -72,7 +72,7 @@
 
     <!-- INSERT -->
     <insert id="insert"
-            parameterType="com.henheang.saaspractices.ntc.service.NtcBoardInVO">
+            parameterType="egovframework.com.ntc.service.NtcBoardInVO">
         INSERT INTO co_notice_m (
             notice_sn,
             notice_title,
@@ -92,7 +92,7 @@
 
     <!-- UPDATE -->
     <update id="update"
-            parameterType="com.henheang.saaspractices.ntc.service.NtcBoardInVO">
+            parameterType="egovframework.com.ntc.service.NtcBoardInVO">
         UPDATE co_notice_m
            SET notice_title = #{noticeTitle},
                notice_cn    = #{noticeCn},
@@ -104,7 +104,7 @@
 
     <!-- DELETED LIST — shows only use_yn = 'N' records -->
     <select id="selectDeletedList"
-            parameterType="com.henheang.saaspractices.ntc.service.NtcBoardInVO"
+            parameterType="egovframework.com.ntc.service.NtcBoardInVO"
             resultMap="ntcBoard">
         SELECT notice_sn,
                notice_title,
@@ -118,22 +118,25 @@
 
     <!-- RESTORE — set use_yn back to 'Y' -->
     <update id="restore"
-            parameterType="com.henheang.saaspractices.ntc.service.NtcBoardInVO">
+            parameterType="egovframework.com.ntc.service.NtcBoardInVO">
         UPDATE co_notice_m
            SET use_yn      = 'Y',
                data_chg_id = #{dataChgId},
                data_chg_dt = NOW()
          WHERE notice_sn = #{noticeSn}
+           AND use_yn    = 'N'  <!-- only deleted rows can be restored; else 0 rows → M0002 -->
     </update>
 
     <!-- SOFT DELETE — update use_yn = 'N' instead of physical delete -->
     <update id="delete"
-            parameterType="com.henheang.saaspractices.ntc.service.NtcBoardInVO">
+            parameterType="egovframework.com.ntc.service.NtcBoardInVO">
         UPDATE co_notice_m
            SET use_yn      = 'N',
                data_chg_id = #{dataChgId},
                data_chg_dt = NOW()
          WHERE notice_sn = #{noticeSn}
+           AND use_yn    = 'Y'  <!-- only active rows can be deleted; else 0 rows → M0002 -->
     </update>
+
 
 </mapper>

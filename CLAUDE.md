@@ -16,19 +16,23 @@
 
 ---
 
-## 📌 Local Mapping — saas-olv → saas-practices
+## 📌 Local Mapping — saas-olv → bizplay-voucher-project-test
 
-When the guides reference saas-olv class names, here is the equivalent in **this** project:
+This project follows the olv package/folder structure (`egovframework.com.*`), so most olv class names exist here with the **same name and path**:
 
-| Concept | saas-olv (real project) | saas-practices (this project) |
+| Concept | saas-olv (real project) | bizplay-voucher-project-test (this project) |
 |---------|-------------------------|-------------------------------|
-| Base VO with search/paging/audit | `egovframework.com.cmm.CmmVO` | [`com.henheang.saaspractices.cmm.BaseVO`](src/main/java/com/henheang/saaspractices/cmm/BaseVO.java) |
-| Pagination helper | `CmmPaginationInfo` (AJAX-oriented) | [`PaginationVO`](src/main/java/com/henheang/saaspractices/cmm/PaginationVO.java) (server-side rendering) |
-| AJAX request wrapper | `CmmInVO<T>` | *(not used yet — saas-practices uses server-side rendering)* |
-| AJAX response wrapper | `CmmOutVO` | *(not used yet — saas-practices uses Model attributes)* |
-| Working sample domain | `egovframework.com.smp.*` (SmpBoard) | [`com.henheang.saaspractices.ntc.*`](src/main/java/com/henheang/saaspractices/ntc/) (NtcBoard) |
-| Sample HTML location | `templates/egovframework/com/smp/SmpBoard*.html` | [`templates/ntc/NtcBoard*.html`](src/main/resources/templates/ntc/) |
-| Sample SQL XML | `egovframework/mapper/com/smp/SmpBoard_SQL.xml` | [`mapper/ntc/NtcBoard_SQL.xml`](src/main/resources/mapper/ntc/NtcBoard_SQL.xml) |
+| Entry point | `cmm/config/EgovWebApplicationInitializer` | [same](src/main/java/egovframework/com/cmm/config/EgovWebApplicationInitializer.java) (no WAR / `SpringBootServletInitializer`) |
+| Base VO with search/paging/audit | `egovframework.com.cmm.CmmVO` | [same](src/main/java/egovframework/com/cmm/CmmVO.java) (simplified fields) |
+| Business / system exception | `cmm/exception/CmmBizException`, `CmmException` | [same](src/main/java/egovframework/com/cmm/exception/) |
+| Global exception handler | `cmm/exception/CmmExceptionHandler` | [same](src/main/java/egovframework/com/cmm/exception/CmmExceptionHandler.java) (no `GlobalsProperties` api mode) |
+| Request-type util | `cmm/util/CmmWebUtil.isJsonRequest` | [same](src/main/java/egovframework/com/cmm/util/CmmWebUtil.java) (only the request-type methods) |
+| Pagination helper | `CmmPaginationInfo` (AJAX-oriented) | [`cmm/service/PaginationVO`](src/main/java/egovframework/com/cmm/service/PaginationVO.java) (server-side rendering) |
+| AJAX request wrapper | `CmmInVO<T>` | *(not used yet — this project uses server-side rendering)* |
+| AJAX response wrapper | `CmmOutVO` | *(not used yet — this project uses Model attributes)* |
+| Working sample domain | `egovframework.com.smp.*` (SmpBoard) | [`egovframework.com.ntc.*`](src/main/java/egovframework/com/ntc/) (NtcBoard) |
+| Sample HTML location | `templates/egovframework/com/smp/SmpBoard*.html` | [`templates/egovframework/com/ntc/NtcBoard*.html`](src/main/resources/templates/egovframework/com/ntc/) |
+| Sample SQL XML | `egovframework/mapper/com/smp/SmpBoard_SQL.xml` | [`egovframework/mapper/com/ntc/NtcBoard_SQL.xml`](src/main/resources/egovframework/mapper/com/ntc/NtcBoard_SQL.xml) |
 | URL pattern | `/smpBoard/list.do` | `/ntcBoard/list.do` |
 
 ### Key differences this project uses (compared to saas-olv)
@@ -41,8 +45,7 @@ When the guides reference saas-olv class names, here is the equivalent in **this
 - **DB**: PostgreSQL via MyBatis (same as saas-olv).
 - **Templates**: Thymeleaf + Layout Dialect (same as saas-olv).
 
-> ⚠️ When the guides below show `extends CmmVO` — write `extends BaseVO` in this project.
-> When they show `CmmPaginationInfo.setupPaging(request)` — use `new PaginationVO(totCnt, pageIndex, recordCountPerPage)` instead.
+> ⚠️ When the guides below show `CmmPaginationInfo.setupPaging(request)` — use `new PaginationVO(totCnt, pageIndex, recordCountPerPage)` instead.
 
 ---
 

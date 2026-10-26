@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.henheang'
 version = '0.0.1-SNAPSHOT'
-description = 'saas-practices'
+description = 'bizplay-voucher-project-test'
 
 java {
     toolchain {
@@ -26,10 +26,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
-    // MyBatis + PostgreSQL (same as saas-olv)
+    // MyBatis + PostgresSQL (same as saas-olv)
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:4.0.1'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     runtimeOnly 'org.postgresql:postgresql'
+
+    // AOP (AspectJ pointcut expressions) — for TransactionConfig *Impl auto-transaction (same as saas-olv)
+    implementation 'org.springframework.boot:spring-boot-starter-aspectj'
 
     // Validation (@Valid on Controller)
     implementation 'org.springframework.boot:spring-boot-starter-validation'

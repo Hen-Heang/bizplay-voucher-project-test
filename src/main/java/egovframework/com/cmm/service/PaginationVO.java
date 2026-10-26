@@ -1,4 +1,4 @@
-package com.henheang.saaspractices.cmm;
+package egovframework.com.cmm.service;
 
 /**
  * Computes all values needed to render a pagination bar.

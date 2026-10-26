@@ -1,4 +1,4 @@
-package com.henheang.saaspractices.ntc.service;
+package egovframework.com.ntc.service;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * Notice Board OutVO — practice equivalent of SmpBoardOutVO in saas-olv.
  * Holds all OUTPUT from DB → browser (query results only).
- * Does NOT extend BaseVO — just Serializable. Keep it lightweight.
+ * Does NOT extend CmmVO — just Serializable. Keep it lightweight.
  */
 public class NtcBoardOutVO implements Serializable {
 

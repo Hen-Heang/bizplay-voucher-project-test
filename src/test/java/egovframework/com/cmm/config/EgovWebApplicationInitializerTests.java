@@ -1,10 +1,10 @@
-package com.henheang.saaspractices;
+package egovframework.com.cmm.config;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SaasPracticesApplicationTests {
+class EgovWebApplicationInitializerTests {
 
     @Test
     void contextLoads() {

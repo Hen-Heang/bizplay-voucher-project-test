@@ -1,15 +1,15 @@
-package com.henheang.saaspractices.ntc.service;
+package egovframework.com.ntc.service;
 
-import com.henheang.saaspractices.cmm.BaseVO;
+import egovframework.com.cmm.CmmVO;
 
 import java.io.Serial;
 
 /**
  * Notice Board InVO — practice equivalent of SmpBoardInVO in saas-olv.
  * Holds all INPUT from browser → server (search, form fields, PK).
- * Extends BaseVO = the same as extending CmmVO in saas-olv.
+ * Extends CmmVO = the same as extending CmmVO in saas-olv.
  */
-public class NtcBoardInVO extends BaseVO {
+public class NtcBoardInVO extends CmmVO {
 
     @Serial
     private static final long serialVersionUID = 1L;

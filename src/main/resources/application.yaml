@@ -1,8 +1,8 @@
 spring:
   application:
-    name: saas-practices
+    name: bizplay-voucher-project-test
   datasource:
-    url: jdbc:postgresql://localhost:5432/practice_db
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: 123
     driver-class-name: org.postgresql.Driver
@@ -17,7 +17,7 @@ spring:
       mode: always
 
 mybatis:
-  mapper-locations: classpath:mapper/**/*.xml
+  mapper-locations: classpath:/egovframework/mapper/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -25,6 +25,6 @@ mybatis:
 logging:
   level:
     # shows exact SQL + bound parameters + result row count
-    com.henheang.saaspractices.ntc.mapper: DEBUG
+    egovframework.com.ntc.mapper: DEBUG
     # shows SQL with actual values filled in (not ? placeholders)
     org.mybatis: DEBUG
